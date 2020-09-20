@@ -1,0 +1,67 @@
+﻿@model FootballersCatalog.ViewModels.FootballerModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Footballer</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Footballer.Id" />
+            <div class="form-group">
+                <label asp-for="Footballer.Name" class="control-label"></label>
+                <input asp-for="Footballer.Name" class="form-control" />
+                <span asp-validation-for="Footballer.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Footballer.Surname" class="control-label"></label>
+                <input asp-for="Footballer.Surname" class="form-control" />
+                <span asp-validation-for="Footballer.Surname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Footballer.Gender" class="control-label"></label>
+                <select asp-for="Footballer.Gender" asp-items="Html.GetEnumSelectList<Gender>()"
+                        class="form-control"></select>
+                <span asp-validation-for="Footballer.Gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Footballer.DateOfBirth" class="control-label"></label>
+                <input asp-for="Footballer.DateOfBirth" class="form-control" max="2999-12-31" />
+                <span asp-validation-for="Footballer.DateOfBirth" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Footballer.TeamName" class="control-label"></label>
+                <input asp-for="Footballer.TeamName" class="form-control" />
+                <datalist id="teams">
+                    @foreach (var team in Model.Teams)
+                    {
+                        <option value="@team.Name">@team.Name</option>
+                    }
+                </datalist>
+                <span asp-validation-for="Footballer.TeamName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Footballer.Country" class="control-label"></label>
+                <select asp-for="Footballer.Country" asp-items="Html.GetEnumSelectList<Country>()"
+                        class="form-control"></select>
+                <span asp-validation-for="Footballer.Country" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
